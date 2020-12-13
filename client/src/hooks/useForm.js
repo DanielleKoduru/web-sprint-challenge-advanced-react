@@ -1,4 +1,4 @@
-// write your custom hook here to control your checkout form
+// custom hook to control checkout form
 import { useState } from 'react';
 
 export const useForm = (initialValue) => {
