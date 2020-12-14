@@ -1,15 +1,16 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import CheckoutForm from "./CheckoutForm";
 
 // Write up the two tests here and make sure they are testing what the title shows
 
 test("form header renders", () => {
-    render(<CheckoutForm />)
+    render(<CheckoutForm />);
 });
 
 test("form shows success message on submit with form details", () => {
-    render(<CheckoutForm />)
+    render(<CheckoutForm />);
 
     // query for each input field
     const firstNameInput = screen.getByLabelText(/first Name/i);
@@ -26,15 +27,14 @@ test("form shows success message on submit with form details", () => {
     userEvent.type(cityInput, "Boston");
     userEvent.type(stateInput, "Massachuttes");
     userEvent.type(zipInput, "12345");
-   
+
 
     //click the button 
-    await act(async () => {
-        const button = screen.getByRole("button", { name: /submit/i});
-        userEvent.click(button)
-    });
+    const checkoutButton = screen.getByRole("button");
+    userEvent.click(checkoutButton);
+
 
     //Assert the new form added is now on the page
-    const name = screen.getByText(/danielle/i);
-    expect (name).toBeInTheDocument();
+    const successMessage = screen.getByTestId("successMessage");
+    expect(successMessage).toBeInTheDocument();
 });
